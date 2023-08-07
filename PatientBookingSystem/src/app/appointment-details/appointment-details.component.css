@@ -1,0 +1,15 @@
+.display-4 {
+    text-decoration: underline;
+}
+
+.custom-img {
+    height: 15px;
+    width: 15px;
+    
+}
+
+.custom-btn{
+    padding:0;
+    border: none;
+    background: none;
+}

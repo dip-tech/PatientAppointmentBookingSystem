@@ -1,0 +1,13 @@
+.display-4{
+    text-decoration: underline;
+}
+
+.custom-control-input:checked{
+    color: #fff;
+    border-color: #080808;
+    background-color: black;
+}
+.form-check-input {
+    margin-right: 2px;
+    margin-top: 3px;
+}

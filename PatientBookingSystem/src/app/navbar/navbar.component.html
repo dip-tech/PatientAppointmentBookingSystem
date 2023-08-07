@@ -1,0 +1,71 @@
+<header class="header_wapper">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top" >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/assets/images/logo.png" class="img-fluid">
+      </a>
+      <button class="navbar-toggler" type="button" onclick="navToggle()" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="doctors">Doctors</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="appointment-details">Appointment</a>
+          </li>
+          <li *ngIf="!user_email" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogin" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Login
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLogin">
+              <li><a class="dropdown-item btn" routerLink="patient-login">Login as a Patient</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item btn" routerLink="/doctor-login">Login as a Doctor</a></li>
+            </ul>
+          </li>
+          <li *ngIf="!user_email" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogin" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Signup
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLogin">
+              <li><a class="dropdown-item btn" routerLink="/patient-signup">Signup as a Patient</a></li>
+              <li style="margin-left:10px;margin-right:10px;">
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item btn" routerLink="/doctor-signup">Signup as a Doctor</a></li>
+            </ul>
+          </li>
+          <li *ngIf="user_email" class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogin" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            {{user_email}}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownLogin">
+            <li style="margin-left:10px;margin-right:10px;"><a class="dropdown-item btn" (click)="goToProfile()">Profile</a></li>
+            <li style="margin-left:10px;margin-right:10px;">
+              <hr class="dropdown-divider">
+            </li>
+            <li style="margin-left:10px;margin-right:10px;"><a class="dropdown-item btn" href="#" (click)="doLogOut()">Logout</a></li>
+          </ul>
+          </li>
+        </ul>
+        <!-- <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+      </div>
+    </div>
+  </nav>
+</header>
+
+

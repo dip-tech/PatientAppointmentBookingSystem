@@ -1,0 +1,195 @@
+<div class="container mb-5" style="width:90%;">
+  <h2 class="display-4 text-center py-5">Appointment Details</h2>
+
+  <div class="container mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+          <div class="alert alert-primary" role="alert">
+            <div class="row justify-content-md-center">
+              <div class="col-md-8">
+                <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchKey">
+              </div>
+              <div class="col-sm-2 ">
+                <button type="button" class="form-control btn btn-primary" (click)="searchAppointment()">Search</button>
+              </div>
+              <div class="col-sm-2 ">
+                <button type="button" class="form-control btn btn-danger" (click)="cancelSearch()">Cancel</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <table *ngIf="mainTable" class="table table table-striped table-bordered">
+    <thead class="bg-primary text-light">
+      <tr>
+        <th class="p-3" scope="col">#</th>
+        <th class="p-3" scope="col">NAME</th>
+        <th class="p-3" scope="col">ADDRESS</th>
+        <th class="p-3" scope="col">MOBILE</th>
+        <th class="p-3" scope="col">EMAIL</th>
+        <th class="p-3" scope="col">DAY</th>
+        <th class="p-3" scope="col">TIME</th>
+        <th class="p-3" scope="col">STATUS</th>
+        <th class="p-3" scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody id="adetails">
+      <tr *ngFor="let a of appdetails;index as i">
+        <th class="p-3" scope="row">{{i+1}}</th>
+        <td class="p-3">{{a.first_NAME}}&nbsp;{{a.last_NAME}}</td>
+        <td class="p-3">{{a.address}}</td>
+        <td class="p-3">{{a.mobile_NO}}</td>
+        <td class="p-3">{{a.email}}</td>
+        <td class="p-3">{{a.a_DAY}}</td>
+        <td class="p-3">{{a.a_TIME}}</td>
+        <td *ngIf="a.appointment_CONFRIMED=='CONFRIMED'" class="p-3"><span
+            class="badge bg-success">{{a.appointment_CONFRIMED}}</span></td>
+        <td *ngIf="a.appointment_CONFRIMED=='NOT CONFRIMED'" class="p-3"><span
+            class="badge bg-danger">{{a.appointment_CONFRIMED}}</span></td>
+        <td class="p-2 text-center"><button *ngIf="a.appointment_CONFRIMED!='CONFRIMED' && isDoctor" class="custom-btn"
+            (click)="acceptAppointment(a.appointment_ID)" [disabled]="(a.appointment_CONFRIMED=='CONFRIMED')"
+            title="Accept Appointment"><img class="custom-img" src="/assets/images/check.png"></button><span
+            *ngIf="(a.appointment_CONFRIMED=='NOT CONFRIMED') && isDoctor"> |</span>
+          <button class="custom-btn" (click)="downloadPdf(a)" title="Download PDF"><img class="custom-img"
+              src="/assets/images/pdf.png"></button>
+          <span *ngIf="(a.appointment_CONFRIMED=='NOT CONFRIMED')"> |</span>
+          <span *ngIf="(a.appointment_CONFRIMED=='CONFRIMED') && isDoctor"> |</span>
+          <button class="custom-btn" (click)="setDeleteAppointmentId(a.appointment_ID)" title="Delete Appointment"
+            *ngIf="(a.appointment_CONFRIMED!='CONFRIMED') && isDoctor==false" data-bs-toggle="modal"
+            data-bs-target="#deleteAppointmentModal"><img class="custom-img" src="/assets/images/delete.png"></button>
+          <button class="custom-btn" (click)="setDeleteAppointmentId(a.appointment_ID)" title="Delete Appointment"
+            *ngIf="isDoctor" data-bs-toggle="modal" data-bs-target="#deleteAppointmentModal"><img class="custom-img"
+              src="/assets/images/delete.png"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+  <table *ngIf="showSearch" class="table table table-striped table-bordered">
+    <thead class="bg-primary text-light">
+      <tr>
+        <th class="p-3" scope="col">#</th>
+        <th class="p-3" scope="col">NAME</th>
+        <th class="p-3" scope="col">ADDRESS</th>
+        <th class="p-3" scope="col">MOBILE</th>
+        <th class="p-3" scope="col">EMAIL</th>
+        <th class="p-3" scope="col">DAY</th>
+        <th class="p-3" scope="col">TIME</th>
+        <th class="p-3" scope="col">STATUS</th>
+        <th class="p-3" scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of tempList;index as i">
+        <th class="p-3" scope="row">{{i+1}}</th>
+        <td class="p-3">{{a.first_NAME}}&nbsp;{{a.last_NAME}}</td>
+        <td class="p-3">{{a.address}}</td>
+        <td class="p-3">{{a.mobile_NO}}</td>
+        <td class="p-3">{{a.email}}</td>
+        <td class="p-3">{{a.a_DAY}}</td>
+        <td class="p-3">{{a.a_TIME}}</td>
+        <td *ngIf="a.appointment_CONFRIMED=='CONFRIMED'" class="p-3"><span
+            class="badge bg-success">{{a.appointment_CONFRIMED}}</span></td>
+        <td *ngIf="a.appointment_CONFRIMED=='NOT CONFRIMED'" class="p-3"><span
+            class="badge bg-danger">{{a.appointment_CONFRIMED}}</span></td>
+        <td class="p-2 text-center"><button *ngIf="a.appointment_CONFRIMED!='CONFRIMED' && isDoctor" class="custom-btn"
+            (click)="acceptAppointment(a.appointment_ID)" [disabled]="(a.appointment_CONFRIMED=='CONFRIMED')"
+            title="Accept Appointment"><img class="custom-img" src="/assets/images/check.png"></button><span
+            *ngIf="(a.appointment_CONFRIMED=='NOT CONFRIMED') && isDoctor"> |</span>
+          <button class="custom-btn" (click)="downloadPdf(a)" title="Download PDF"><img class="custom-img"
+              src="/assets/images/pdf.png"></button>
+          <span *ngIf="(a.appointment_CONFRIMED=='NOT CONFRIMED')"> |</span>
+          <span *ngIf="(a.appointment_CONFRIMED=='CONFRIMED') && isDoctor"> |</span>
+          <button class="custom-btn" (click)="setDeleteAppointmentId(a.appointment_ID)" title="Delete Appointment"
+            *ngIf="(a.appointment_CONFRIMED!='CONFRIMED') && isDoctor==false" data-bs-toggle="modal"
+            data-bs-target="#deleteAppointmentModal"><img class="custom-img" src="/assets/images/delete.png"></button>
+          <button class="custom-btn" (click)="setDeleteAppointmentId(a.appointment_ID)" title="Delete Appointment"
+            *ngIf="isDoctor" data-bs-toggle="modal" data-bs-target="#deleteAppointmentModal"><img class="custom-img"
+              src="/assets/images/delete.png"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="display-4 text-center py-5">My Details</h2>
+
+  <table *ngIf="isDoctor==true" class="table table table-striped table-bordered">
+    <thead class="bg-primary text-light">
+      <tr>
+        <th class="p-3" scope="col">NAME</th>
+        <th class="p-3" scope="col">ADDRESS</th>
+        <th class="p-3" scope="col">MOBILE</th>
+        <th class="p-3" scope="col">EMAIL</th>
+        <th class="p-3" scope="col">ACCOUNT TYPE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3">{{doctor.dd.first_NAME}}&nbsp;{{doctor.dd.last_NAME}}</td>
+        <td class="p-3">{{doctor.dd.chembar_ADDRESS}}</td>
+        <td class="p-3">{{doctor.dd.mobile_NO}}</td>
+        <td class="p-3">{{doctor.dd.email_ID}}</td>
+        <td class="p-3">DOCTOR</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="isDoctor==false" class="table table table-striped table-bordered">
+    <thead class="bg-primary text-light">
+      <tr>
+        <th class="p-3" scope="col">NAME</th>
+        <th class="p-3" scope="col">ADDRESS</th>
+        <th class="p-3" scope="col">MOBILE</th>
+        <th class="p-3" scope="col">EMAIL</th>
+        <th class="p-3" scope="col">ACCOUNT TYPE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3">{{patient.patientDetails.first_NAME}}&nbsp;{{patient.patientDetails.last_NAME}}</td>
+        <td class="p-3">{{patient.patientDetails.address}}</td>
+        <td class="p-3">{{patient.patientDetails.mobile_NO}}</td>
+        <td class="p-3">{{patient.patientDetails.email_ID}}</td>
+        <td class="p-3">PATIENT</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="deleteAppointmentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Once you delete the Appointment,
+          booking amount will be refunded 2-3 bussiness days.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" (click)="deleteAppointment(appointmentID)" class="btn btn-danger"
+            data-bs-dismiss="modal">Delete Appointment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
