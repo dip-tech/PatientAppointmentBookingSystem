@@ -1,0 +1,19 @@
+// CREATE DOCKER NETWORK
+step 1: docker network create --driver=bridge patient-booking-network
+
+// PULL MYSQL IMAGE FROM DOCKER HUB
+step 2: docker pull mysql
+
+// RUN MYSQL IMAGE IN DOCKER CONTAINER
+setp 3: docker run --name appointment-database --network patient-booking-network -e MYSQL_DATABASE=appoiintmentdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=root -e MYSQL_PASSWORD=root -d mysql
+
+// EXECUTE MYSQL TERMINAL
+step 4: docker exec -it appointment-database bash
+
+// LOGIN TO MYSQL DATABASE
+step 5: mysql -uroot -proot
+
+// SETUP DATABASE
+step 6: show databases;
+step 7: use appointmentdb;
+step 8: create tables and insert data.

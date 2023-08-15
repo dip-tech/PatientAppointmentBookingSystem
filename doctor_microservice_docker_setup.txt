@@ -1,0 +1,13 @@
+// CREATE DOCKER NETWORK( DONT REPEAT IF ALREADY CREATED)
+step 1: docker network create --driver=bridge patient-booking-network
+
+// PULL IMAGE FROM DOCKER HUB
+step 2: docker pull dipankar8dutta/doctor-microservice-img
+
+		or
+
+// CREATE DOCKER IMAGE FROM DOCKERFILE
+step 2: docker build -t doctor-microservice-img .
+
+// RUN DOCKER IMAGE
+step 3: docker run --name doctor-container -p 8001:8001 --network patient-booking-network --link appointment-database:mysql -e DB_HOST=appointment-database -e DB_USER=root -e DB_PASS=root -d dipankar8dutta/doctor-microservice-img

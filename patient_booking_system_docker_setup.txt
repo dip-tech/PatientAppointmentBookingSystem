@@ -1,0 +1,13 @@
+// CREATE DOCKER NETWORK( DONT REPEAT IF ALREADY CREATED)
+step 1: docker network create --driver=bridge patient-booking-network
+
+// PULL IMAGE FROM DOCKER HUB
+step 2: docker pull dipankar8dutta/patient-booking-system-img
+
+		or
+
+// CREATE DOCKER IMAGE FROM DOCKERFILE
+step 2: docker build -t patient-booking-system-img .
+
+// RUN DOCKER IMAGE
+step 3: docker run --name patient-booking-system-container -p 80:80 --network patient-booking-network -d dipankar8dutta/patient-booking-system-img
