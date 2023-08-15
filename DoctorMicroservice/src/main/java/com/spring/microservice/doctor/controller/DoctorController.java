@@ -33,7 +33,8 @@ import com.spring.microservice.doctor.security.DoctorLoginDetails;
 import com.spring.microservice.doctor.security.DoctorLoginDetailsService;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+//@CrossOrigin("http://localhost:4200") // FOR ANGULAR LOCAL ENVIRONMENT
+@CrossOrigin("http://localhost") // FOR ANGULAR DOCKER ENVIRONMENT
 @RequestMapping("/api/v1/doctor")
 public class DoctorController {
 

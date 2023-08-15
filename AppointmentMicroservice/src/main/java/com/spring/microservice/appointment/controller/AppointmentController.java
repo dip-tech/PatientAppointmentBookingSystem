@@ -22,7 +22,8 @@ import com.spring.microservice.appointment.repo.AppoinmentDetailsRepo;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
+//@CrossOrigin("http://localhost:4200/") // FOR ANGULAR LOCAL ENVIRONMENT
+@CrossOrigin("http://localhost") // FOR ANGULAR DOCKER ENVIRONMENT
 @RequestMapping("api/v1/appointment/")
 public class AppointmentController {
 

@@ -20,7 +20,7 @@ public class DoctorMicroserviceApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 WebMvcConfigurer.super.addCorsMappings(registry);
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("*").maxAge(3600L)
+                registry.addMapping("/**").allowedOrigins("http://localhost").allowedMethods("*").maxAge(3600L)
                         .allowedHeaders("*").exposedHeaders("Authorization").allowCredentials(true);
             }
 
